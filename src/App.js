@@ -1,9 +1,12 @@
 import './App.css';
 import {Box, Container, Grid, Typography} from "@mui/material";
 import Editor from "./components/Editor";
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
+import videojs from 'video.js';
+import 'video.js/dist/video-js.css';
+import ReactPlayer from 'react-player';
 
-function App() {
+function App(props) {
     const [content, setContent] = useState('');
 
   return (
@@ -16,11 +19,19 @@ function App() {
                     <Editor onChange={setContent} value={content}/>
               </Grid>
               <Grid item lg={6}>
-                  <Typography>
-                      {content}
-                  </Typography>
+                 <Box sx={{
+                     'img': {
+                         width: '100%'
+                     }
+                 }}>
+                     <div dangerouslySetInnerHTML={{ __html: content }}/>
+                 </Box>
               </Grid>
           </Grid>
+          <Typography variant="h4">Source Code</Typography>
+          <Typography>
+              {content}
+          </Typography>
       </Container>
   );
 }
